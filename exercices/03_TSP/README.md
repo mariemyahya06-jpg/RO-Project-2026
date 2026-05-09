@@ -1,60 +1,52 @@
-1. Introduction
+# Sujet 3 : Problème du voyageur de commerce, TSP
 
-Le problème du voyageur de commerce (TSP) est un problème classique de recherche opérationnelle.
-Ce projet propose une méthode d’optimisation pour trouver le plus court trajet permettant de visiter plusieurs villes une seule fois puis revenir au point de départ.
+## Responsable
+Nom : Maryeme Yahya Hourme
+Numéro : C29782
 
-⸻
+## Idée du projet
+Ce projet étudie le problème du voyageur de commerce, TSP.  
+L’objectif général est de trouver un circuit de distance minimale.  
+Pour la partie simplexe, on utilise une version linéaire simplifiée avec deux types de trajets.
 
-2. Problématique
+## Hypothèses numériques
 
-Comment trouver le chemin optimal permettant de visiter toutes les villes avec la distance totale minimale ?
+Les valeurs numériques utilisées dans ce sujet sont des données proposées pour construire un exemple simple et applicable.  
+Le document du projet présente la description générale du problème, mais ne fournit pas toutes les données nécessaires à la résolution numérique.  
+Ces valeurs permettent de formuler un exercice résoluble par la méthode du simplexe et de vérifier la solution avec Python.
 
-⸻
+## Variables de décision
+- `X` : nombre de trajets effectués sur la route 1
+- `Y` : nombre de trajets effectués sur la route 2
 
-3. Objectifs
+## Fonction objectif
+Maximiser le gain de distance obtenu :
 
-* Réduire la distance parcourue.
-* Réduire le coût du transport.
-* Trouver le trajet optimal.
-* Visiter chaque ville une seule fois.
+Z = 25X + 20Y
 
-⸻
+où :
 
-4. Données utilisées
+- `25` représente le gain obtenu par le choix de la route 1
+- `20` représente le gain obtenu par le choix de la route 2
 
-* Liste des villes.
-* Distances entre les villes.
-* Matrice des distances.
-* Point de départ.
+## Contraintes
+- X + Y <= 30  
+- 4X + 2Y <= 100  
+- 2X + 3Y <= 90  
+- X >= 0  
+- Y >= 0  
 
-⸻
+## Signification des contraintes
+- `X + Y <= 30` : nombre maximal de trajets possibles
+- `4X + 2Y <= 100` : contrainte de distance disponible
+- `2X + 3Y <= 90` : contrainte de temps disponible
 
-5. Modélisation
+## Méthode utilisée
+- Partie théorique : méthode du simplexe
+- Implémentation : OR-Tools
+- Solveur : moteur de routage OR-Tools
 
-* Type du problème : TSP (Travelling Salesman Problem).
-* Fonction objectif : minimiser la distance totale.
-* Contraintes :
-    * chaque ville est visitée une seule fois ;
-    * retour à la ville de départ.
-
-⸻
-
-6. Implémentation Python
-
-* Bibliothèque OR-Tools.
-* Matrice des distances.
-* Résolution automatique du trajet optimal.
-
-⸻
-
-7. Résultats
-
-* Trajet optimal obtenu.
-* Distance totale minimale.
-* Ordre des villes visitées.
-
-⸻
-
-8. Conclusion
-
-Ce projet montre que les méthodes d’optimisation peuvent aider à améliorer l’organisation des trajets et réduire les coûts de transport.
+## Fichiers
+- `distances.csv` : matrice des distances
+- `model_ortools.py` : code Python avec OR-Tools
+- `simplexe.tex` : exercice théorique avec la méthode du simplexe

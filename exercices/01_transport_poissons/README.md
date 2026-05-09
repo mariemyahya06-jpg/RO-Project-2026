@@ -1,68 +1,51 @@
-1. Introduction
+# Sujet 1 : Transport de poissons Nouadhibou–Nouakchott
 
-En Mauritanie, le transport du poisson frais est très important, surtout entre Nouadhibou et Nouakchott.
-Ce projet propose une méthode d’optimisation pour organiser le transport du poisson en réduisant le coût, le temps et les pertes.
+## Responsable
+Nom : Sara Rabani
+Numéro : C30911
 
-⸻
+## Idée du projet
+Ce projet étudie l’organisation du transport du poisson frais entre Nouadhibou et Nouakchott.  
+On considère deux types de destinations : le marché principal et les restaurants/supermarchés.
 
-2. Problématique
+## Hypothèses numériques
 
-Comment organiser le transport du poisson frais de Nouadhibou vers Nouakchott afin de minimiser le coût total tout en respectant les contraintes de temps, de capacité et de périssabilité ?
+Les valeurs numériques utilisées dans ce sujet sont des données proposées pour construire un exemple simple et applicable.  
+Le document du projet présente la description générale du problème, mais ne fournit pas toutes les données nécessaires à la résolution numérique.  
+Ces valeurs permettent de formuler un exercice résoluble par la méthode du simplexe et de vérifier la solution avec Python.
 
-⸻
+## Variables de décision
+- `X` : quantité de poisson transportée vers le marché principal
+- `Y` : quantité de poisson transportée vers les restaurants et supermarchés
 
-3. Objectifs
+## Fonction objectif
+Maximiser le bénéfice total du transport :
 
-* Réduire le coût du transport.
-* Réduire le temps de livraison.
-* Préserver la qualité du poisson.
-* Respecter la capacité des camions.
-* Satisfaire la demande des marchés.
+Z = 40X + 50Y
 
-⸻
+où :
 
-4. Données utilisées
+- `40` représente le bénéfice unitaire pour le marché principal
+- `50` représente le bénéfice unitaire pour les restaurants et supermarchés
 
-* Quantité de poisson disponible.
-* Demande des marchés.
-* Distance entre Nouadhibou et Nouakchott.
-* Capacité des camions.
-* Coût de transport.
-* Temps maximal de livraison.
+## Contraintes
+- X + Y <= 100  
+- 2X + 3Y <= 240  
+- X + 2Y <= 160  
+- X >= 0  
+- Y >= 0  
 
-⸻
+## Signification des contraintes
+- `X + Y <= 100` : quantité totale de poisson disponible
+- `2X + 3Y <= 240` : temps total de transport disponible
+- `X + 2Y <= 160` : capacité de conservation frigorifique
 
-5. Modélisation
+## Méthode utilisée
+- Partie théorique : méthode du simplexe
+- Implémentation : Pyomo
+- Solveur : GLPK
 
-* Type du problème : problème de transport / optimisation logistique.
-* Fonction objectif : minimiser le coût total du transport.
-* Contraintes :
-    * quantité disponible ;
-    * demande à satisfaire ;
-    * capacité des camions ;
-    * respect du temps de livraison ;
-    * conservation du poisson frais.
-
-⸻
-
-6. Implémentation Python
-
-* Bibliothèque Pyomo .
-* Données dans un fichier CSV.
-* Formulation du modèle d’optimisation.
-* Résolution automatique avec un solveur.
-
-⸻
-
-7. Résultats
-
-* Quantité transportée par chaque camion.
-* Coût total minimal.
-* Temps de transport estimé.
-* Plan optimal de livraison.
-
-⸻
-
-8. Conclusion
-
-Ce projet montre que les méthodes d’optimisation peuvent aider à améliorer le transport du poisson frais, réduire les coûts et limiter les pertes entre Nouadhibou et Nouakchott.
+## Fichiers
+- `data.csv` : données du problème
+- `model_pyomo.py` : code Python avec Pyomo
+- `simplexe.tex` : exercice théorique avec la méthode du simplexe

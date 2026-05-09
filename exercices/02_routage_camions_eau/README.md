@@ -1,44 +1,52 @@
-1. Introduction
+# Sujet 2 : Routage des camions d’eau
 
-En Mauritanie, l’accès à l’eau est un sujet important, surtout dans certains quartiers périphériques.
-Ce projet propose une méthode d’optimisation pour organiser les tournées des camions d’eau.
+## Responsable
+Nom : Fatimetou Mouhamed Lemin Saleh
+Numéro : C25248
 
-2. Problématique
+## Idée du projet
+Ce projet étudie la planification des tournées de camions d’eau vers des quartiers périphériques.  
+Pour la partie simplexe, on considère deux zones de distribution.
 
-Comment planifier les tournées des camions d’eau afin de minimiser la distance totale et respecter les demandes des quartiers ?
+## Hypothèses numériques
 
-3. Objectifs
+Les valeurs numériques utilisées dans ce sujet sont des données proposées pour construire un exemple simple et applicable.  
+Le document du projet présente la description générale du problème, mais ne fournit pas toutes les données nécessaires à la résolution numérique.  
+Ces valeurs permettent de formuler un exercice résoluble par la méthode du simplexe et de vérifier la solution avec Python.
 
-* Réduire la distance parcourue.
-* Réduire le coût du transport.
-* Satisfaire les besoins des quartiers.
-* Respecter la capacité des camions.
+## Variables de décision
+- `X` : nombre de tournées vers la zone 1
+- `Y` : nombre de tournées vers la zone 2
 
-4. Données utilisées
+## Fonction objectif
+Maximiser la quantité d’eau distribuée :
 
-* Liste des quartiers.
-* Demandes en litres.
-* Distance entre les quartiers.
-* Capacité du camion.
+Z = 30X + 40Y
 
-5. Modélisation
+où :
 
-* Type du problème: VRP.
-* Fonction objectif: minimiser la distance.
-* Contraintes: demande, capacité, départ/retour au dépôt.
+- `30` représente la quantité d’eau distribuée par une tournée vers la zone 1
+- `40` représente la quantité d’eau distribuée par une tournée vers la zone 2
 
-6. Implémentation Python
+## Contraintes
+- X + Y <= 50  
+- 3X + 4Y <= 120  
+- 2X + 5Y <= 150  
+- X >= 0  
+- Y >= 0  
 
-* Bibliothèque OR-Tools.
-* Matrice des distances.
-* Résolution automatique.
+## Signification des contraintes
+- `X + Y <= 50` : nombre maximal de tournées possibles
+- `3X + 4Y <= 120` : limite de carburant disponible
+- `2X + 5Y <= 150` : limite de temps journalier disponible
 
-7. Résultats
+## Méthode utilisée
+- Partie théorique : méthode du simplexe
+- Implémentation : OR-Tools
+- Solveur : moteur de routage OR-Tools
 
-* Routes obtenues.
-* Distance totale.
-* Charge de chaque camion.
-
-8. Conclusion
-
-Ce projet montre que les méthodes d’optimisation peuvent aider à améliorer la distribution d’eau et réduire les coûts.
+## Fichiers
+- `distances.csv` : matrice des distances
+- `demands.csv` : demandes des points de distribution
+- `model_ortools.py` : code Python avec OR-Tools
+- `simplexe.tex` : exercice théorique avec la méthode du simplexe
