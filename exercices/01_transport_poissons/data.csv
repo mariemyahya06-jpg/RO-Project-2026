@@ -1,0 +1,8 @@
+Variable,Description,Value
+X,Quantité transportée vers le marché principal,0
+Y,Quantité transportée vers les restaurants et supermarchés,0
+Profit_X,Bénéfice unitaire pour X,40
+Profit_Y,Bénéfice unitaire pour Y,50
+Contrainte_1,X + Y <= 100,100
+Contrainte_2,2X + 3Y <= 240,240
+Contrainte_3,X + 2Y <= 160,160

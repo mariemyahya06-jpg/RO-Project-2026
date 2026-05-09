@@ -1,0 +1,8 @@
+Variable,Description,Value
+X,Nombre de trajets effectués sur la route 1,0
+Y,Nombre de trajets effectués sur la route 2,0
+Profit_X,Gain obtenu par le choix de la route 1,25
+Profit_Y,Gain obtenu par le choix de la route 2,20
+Contrainte_1,X + Y <= 30,30
+Contrainte_2,4X + 2Y <= 100,100
+Contrainte_3,2X + 3Y <= 90,90

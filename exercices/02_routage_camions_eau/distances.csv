@@ -1,0 +1,6 @@
+Point,Depot,Zone_1,Zone_2,Zone_3,Zone_4
+Depot,0,10,15,20,25
+Zone_1,10,0,8,12,18
+Zone_2,15,8,0,10,14
+Zone_3,20,12,10,0,9
+Zone_4,25,18,14,9,0

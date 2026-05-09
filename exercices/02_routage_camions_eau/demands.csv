@@ -1,0 +1,8 @@
+Variable,Description,Value
+X,Nombre de tournées vers la zone 1,0
+Y,Nombre de tournées vers la zone 2,0
+Profit_X,Quantité d’eau distribuée par une tournée vers la zone 1,30
+Profit_Y,Quantité d’eau distribuée par une tournée vers la zone 2,40
+Contrainte_1,X + Y <= 50,50
+Contrainte_2,3X + 4Y <= 120,120
+Contrainte_3,2X + 5Y <= 150,150
