@@ -1,0 +1,97 @@
+\section*{Exercice Simplexe : Transport de poissons}
+
+\subsection*{Contexte}
+Une entreprise souhaite organiser le transport du poisson frais entre Nouadhibou et Nouakchott.  
+On considère deux destinations principales : le marché principal et les restaurants/supermarchés.
+
+\subsection*{Variables de décision}
+\[
+X = \text{quantité de poisson transportée vers le marché principal}
+\]
+
+\[
+Y = \text{quantité de poisson transportée vers les restaurants et supermarchés}
+\]
+
+\subsection*{Fonction objectif}
+L’objectif est de maximiser le bénéfice total :
+
+\[
+\max Z = 40X + 50Y
+\]
+
+\subsection*{Contraintes}
+\[
+X + Y \leq 100
+\]
+
+\[
+2X + 3Y \leq 240
+\]
+
+\[
+X + 2Y \leq 160
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection*{Forme standard}
+On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
+
+\[
+X + Y + S_1 = 100
+\]
+
+\[
+2X + 3Y + S_2 = 240
+\]
+
+\[
+X + 2Y + S_3 = 160
+\]
+
+\[
+Z - 40X - 50Y = 0
+\]
+
+\subsection*{Résolution}
+Les sommets réalisables sont :
+
+\[
+(0,0), \quad (100,0), \quad (0,80), \quad (60,40)
+\]
+
+Calcul de la fonction objectif :
+
+\[
+Z(0,0) = 0
+\]
+
+\[
+Z(100,0) = 40(100) + 50(0) = 4000
+\]
+
+\[
+Z(0,80) = 40(0) + 50(80) = 4000
+\]
+
+\[
+Z(60,40) = 40(60) + 50(40) = 4400
+\]
+
+\subsection*{Solution optimale}
+La solution optimale est :
+
+\[
+X = 60, \quad Y = 40
+\]
+
+\[
+Z_{\max} = 4400
+\]
+
+\subsection*{Interprétation}
+L’entreprise doit transporter 60 unités de poisson vers le marché principal et 40 unités vers les restaurants et supermarchés.  
+Le bénéfice maximal obtenu est de 4400 unités.

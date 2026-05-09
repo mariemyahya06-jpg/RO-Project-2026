@@ -1,0 +1,102 @@
+\section*{Exercice Simplexe : Routage des camions d'eau}
+
+\subsection*{Contexte}
+Une société organise la distribution d’eau vers deux zones périphériques.  
+Chaque tournée permet de livrer une quantité d’eau différente selon la zone.
+
+\subsection*{Variables de décision}
+\[
+X = \text{nombre de tournées vers la zone 1}
+\]
+
+\[
+Y = \text{nombre de tournées vers la zone 2}
+\]
+
+\subsection*{Fonction objectif}
+L’objectif est de maximiser la quantité totale d’eau distribuée :
+
+\[
+\max Z = 30X + 40Y
+\]
+
+\subsection*{Contraintes}
+\[
+X + Y \leq 50
+\]
+
+\[
+3X + 4Y \leq 120
+\]
+
+\[
+2X + 5Y \leq 150
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection*{Forme standard}
+On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
+
+\[
+X + Y + S_1 = 50
+\]
+
+\[
+3X + 4Y + S_2 = 120
+\]
+
+\[
+2X + 5Y + S_3 = 150
+\]
+
+\[
+Z - 30X - 40Y = 0
+\]
+
+\subsection*{Résolution}
+Les sommets réalisables principaux sont :
+
+\[
+(0,0), \quad (40,0), \quad (0,30)
+\]
+
+Calcul de la fonction objectif :
+
+\[
+Z(0,0) = 0
+\]
+
+\[
+Z(40,0) = 30(40) + 40(0) = 1200
+\]
+
+\[
+Z(0,30) = 30(0) + 40(30) = 1200
+\]
+
+\subsection*{Solution optimale}
+On obtient plusieurs solutions optimales.  
+Par exemple :
+
+\[
+X = 40, \quad Y = 0
+\]
+
+ou :
+
+\[
+X = 0, \quad Y = 30
+\]
+
+Dans les deux cas :
+
+\[
+Z_{\max} = 1200
+\]
+
+\subsection*{Interprétation}
+La société peut choisir plusieurs plans de tournées donnant la même quantité maximale distribuée.  
+Cela signifie qu’il existe plusieurs organisations possibles avec le même résultat optimal.

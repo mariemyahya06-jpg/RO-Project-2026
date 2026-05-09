@@ -1,0 +1,97 @@
+\section*{Exercice Simplexe : Problème du voyageur de commerce}
+
+\subsection*{Contexte}
+Le problème du voyageur de commerce consiste à trouver un circuit optimal permettant de visiter plusieurs points.  
+Pour appliquer la méthode du simplexe, on considère ici une version linéaire simplifiée avec deux types de trajets.
+
+\subsection*{Variables de décision}
+\[
+X = \text{nombre de trajets effectués sur la route 1}
+\]
+
+\[
+Y = \text{nombre de trajets effectués sur la route 2}
+\]
+
+\subsection*{Fonction objectif}
+L’objectif est de maximiser le gain obtenu par le choix des trajets :
+
+\[
+\max Z = 25X + 20Y
+\]
+
+\subsection*{Contraintes}
+\[
+X + Y \leq 30
+\]
+
+\[
+4X + 2Y \leq 100
+\]
+
+\[
+2X + 3Y \leq 90
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection*{Forme standard}
+On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
+
+\[
+X + Y + S_1 = 30
+\]
+
+\[
+4X + 2Y + S_2 = 100
+\]
+
+\[
+2X + 3Y + S_3 = 90
+\]
+
+\[
+Z - 25X - 20Y = 0
+\]
+
+\subsection*{Résolution}
+Les sommets réalisables principaux sont :
+
+\[
+(0,0), \quad (25,0), \quad (0,30), \quad (20,10)
+\]
+
+Calcul de la fonction objectif :
+
+\[
+Z(0,0) = 0
+\]
+
+\[
+Z(25,0) = 25(25) + 20(0) = 625
+\]
+
+\[
+Z(0,30) = 25(0) + 20(30) = 600
+\]
+
+\[
+Z(20,10) = 25(20) + 20(10) = 700
+\]
+
+\subsection*{Solution optimale}
+La solution optimale est :
+
+\[
+X = 20, \quad Y = 10
+\]
+
+\[
+Z_{\max} = 700
+\]
+
+\subsection*{Interprétation}
+La meilleure combinaison consiste à effectuer 20 trajets sur la route 1 et 10 trajets sur la route 2.  
+Le gain maximal obtenu est de 700 unités.
