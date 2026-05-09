@@ -1,7 +1,9 @@
-# Présentation du projet
+# Présentation
 
-Ce dossier contient la présentation PowerPoint du projet de Recherche Opérationnelle.
+Ce dossier contient la présentation orale du projet.
 
+## Fichiers
+- `presentation_RO.pptx` : présentation PowerPoint
 ## Contenu de la présentation
 
 La présentation contient :

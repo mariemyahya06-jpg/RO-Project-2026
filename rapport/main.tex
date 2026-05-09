@@ -1,0 +1,284 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\title{Projet de Recherche Opérationnelle}
+\author{
+Sara Rabani -- Numéro : C30911 \\
+Fatimetou Mohamed Lemin Saleh -- Numéro : C25248 \\
+Maryem Yahya Hourme -- Numéro : C29782
+}
+\date{Année universitaire 2025--2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction générale}
+
+Ce projet présente la résolution de trois problèmes d'optimisation en Recherche Opérationnelle. Deux sujets sont liés à des problèmes réels en Mauritanie, tandis que le troisième sujet est un problème classique mondialement connu.
+
+Les sujets étudiés sont :
+\begin{itemize}
+    \item Transport de poissons entre Nouadhibou et Nouakchott
+    \item Routage des camions d'eau dans les quartiers périphériques
+    \item Problème du voyageur de commerce, TSP
+\end{itemize}
+
+L'objectif du projet est de formuler chaque problème sous forme mathématique, de proposer un exercice simple résoluble par la méthode du simplexe, puis de vérifier les résultats à l'aide d'outils informatiques comme Pyomo, GLPK et OR-Tools.
+
+\section{Outils utilisés}
+
+Les outils utilisés dans ce projet sont :
+\begin{itemize}
+    \item Python pour l'implémentation des modèles
+    \item Pyomo pour la programmation linéaire
+    \item GLPK comme solveur linéaire
+    \item OR-Tools pour les problèmes de routage
+    \item Overleaf / LaTeX pour la rédaction du rapport
+    \item GitHub pour l'organisation et le partage du projet
+    \item PowerPoint pour la présentation orale
+\end{itemize}
+
+\section{Partie théorique : Méthode du simplexe}
+
+La méthode du simplexe est une méthode classique utilisée pour résoudre les problèmes de programmation linéaire. Elle permet de trouver une solution optimale en se déplaçant entre les sommets du domaine réalisable.
+
+Un problème de programmation linéaire est généralement composé de :
+\begin{itemize}
+    \item variables de décision
+    \item fonction objectif à maximiser ou à minimiser
+    \item contraintes linéaires
+    \item conditions de non-négativité
+\end{itemize}
+
+Dans ce projet, chaque sujet contient une version simplifiée avec deux variables de décision \(X\) et \(Y\), afin de pouvoir appliquer la méthode du simplexe.
+
+\section{Sujet 1 : Transport de poissons Nouadhibou--Nouakchott}
+
+\textbf{Responsable :} Sara Rabani \\   
+\textbf{Numéro :} C30911   
+
+\subsection{Contexte}
+
+En Mauritanie, le transport du poisson frais entre Nouadhibou et Nouakchott est un problème logistique important. Nouadhibou est un centre majeur de pêche, tandis que Nouakchott représente un grand centre de consommation et de distribution.
+
+L'objectif est d'organiser le transport du poisson afin de réduire les pertes, respecter les contraintes de capacité et maximiser le bénéfice total.
+
+\subsection{Variables de décision}
+
+\[
+\begin{aligned}
+X &= \text{quantité de poisson transportée vers le marché principal} \\
+Y &= \text{quantité de poisson transportée vers les restaurants et supermarchés}
+\end{aligned}
+\]
+
+\subsection{Fonction objectif}
+
+L'objectif est de maximiser le bénéfice total :
+
+\[
+Z_{\text{max}} \; = \; 40X + 50Y
+\]
+
+\subsection{Contraintes}
+
+\[
+X + Y \leq 100
+\]
+
+\[
+2X + 3Y \leq 240
+\]
+
+\[
+X + 2Y \leq 160
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection{Méthode utilisée}
+
+Ce problème est formulé comme un problème de programmation linéaire. La partie théorique est résolue par la méthode du simplexe et la vérification informatique est réalisée avec Pyomo et GLPK.
+
+\subsection{Résultat}
+
+La solution optimale obtenue est :
+
+\[
+X = 60, \quad Y = 40
+\]
+
+\[
+Z_{\text{max}} \; = \; 4400
+\]
+
+\subsection{Interprétation}
+
+L'entreprise doit transporter 60 unités de poisson vers le marché principal et 40 unités vers les restaurants et supermarchés. Le bénéfice maximal obtenu est de 4400 unités.
+
+\section{Sujet 2 : Routage des camions d'eau}
+
+\textbf{Responsable :} Fatimetou Mohamed Lemin Saleh \\   
+\textbf{Numéro :} C25248
+
+\subsection{Contexte}
+
+Ce sujet traite la planification des tournées de camions d'eau vers plusieurs quartiers périphériques. L'objectif général est d'améliorer l'organisation de la distribution, de réduire la distance parcourue et de satisfaire la demande des zones concernées.
+
+Pour la partie simplexe, on considère une version linéaire simplifiée avec deux zones de distribution.
+
+\subsection{Variables de décision}
+
+\[
+\begin{aligned}
+X &= \text{nombre de tournées vers la zone 1} \\
+Y &= \text{nombre de tournées vers la zone 2}
+\end{aligned}
+\]
+
+\subsection{Fonction objectif}
+
+L'objectif est de maximiser la quantité totale d'eau distribuée :
+
+\[
+Z_{\text{max}} \; = \; 30X + 40Y
+\]
+
+\subsection{Contraintes}
+
+\[
+X + Y \leq 50
+\]
+
+\[
+3X + 4Y \leq 120
+\]
+
+\[
+2X + 5Y \leq 150
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection{Méthode utilisée}
+
+La version simplexe est formulée comme un programme linéaire. La version informatique du problème de routage est résolue avec OR-Tools, qui est adapté aux problèmes de tournées et de véhicules.
+
+\subsection{Résultat}
+
+Une solution optimale possible est :
+
+\[
+X = 40, \quad Y = 0
+\]
+
+\[
+Z_{\text{max}} \; = \; 1200
+\]
+
+Une autre solution optimale possible est :
+
+\[
+X = 0, \quad Y = 30
+\]
+
+\[
+Z_{\text{max}} \; = \; 1200
+\]
+
+\subsection{Interprétation}
+
+Le modèle montre qu'il existe plusieurs plans de distribution donnant la même quantité maximale d'eau distribuée. Cela signifie que la société peut choisir entre plusieurs organisations possibles selon les conditions réelles du terrain.
+
+\section{Sujet 3 : Problème du voyageur de commerce, TSP}
+
+\textbf{Responsable :} Maryem Yahya Hourme \\   
+\textbf{Numéro :} C29782
+
+\subsection{Contexte}
+
+Le problème du voyageur de commerce, ou TSP, est l'un des problèmes les plus connus en Recherche Opérationnelle. Il consiste à trouver le plus court circuit permettant de visiter tous les points une seule fois et de revenir au point de départ.
+
+Pour appliquer la méthode du simplexe, on utilise une version linéaire simplifiée avec deux types de trajets.
+
+\subsection{Variables de décision}
+
+\[
+\begin{aligned}
+X &= \text{nombre de trajets effectués sur la route 1} \\
+Y &= \text{nombre de trajets effectués sur la route 2}
+\end{aligned}
+\]
+
+\subsection{Fonction objectif}
+
+L'objectif est de maximiser le gain obtenu :
+
+\[
+Z_{\text{max}} \; = \; 25X + 20Y
+\]
+
+\subsection{Contraintes}
+
+\[
+X + Y \leq 30
+\]
+
+\[
+4X + 2Y \leq 100
+\]
+
+\[
+2X + 3Y \leq 90
+\]
+
+\[
+X \geq 0, \quad Y \geq 0
+\]
+
+\subsection{Méthode utilisée}
+
+La partie théorique est présentée sous forme d'un modèle linéaire simplifié. La résolution informatique du TSP est réalisée avec OR-Tools.
+
+\subsection{Résultat}
+
+La solution optimale de la version simplexe est :
+
+\[
+X = 20, \quad Y = 10
+\]
+
+\[
+Z_{\text{max}} \; = \; 700
+\]
+
+\subsection{Interprétation}
+
+La meilleure combinaison consiste à effectuer 20 trajets sur la route 1 et 10 trajets sur la route 2. Le gain maximal obtenu est de 700 unités.
+
+\section{Remarque sur les données utilisées}
+
+Les données numériques utilisées dans ce projet sont des hypothèses proposées afin de construire des exemples simples et résolubles. Le sujet fourni présente les descriptions générales des problèmes, mais ne donne pas toutes les valeurs nécessaires à une résolution numérique complète.
+
+Ces données permettent de formuler des modèles mathématiques simples, d'appliquer la méthode du simplexe et de vérifier les résultats à l'aide d'outils informatiques.
+
+\section{Conclusion}
+
+Ce projet montre l'importance de la Recherche Opérationnelle dans la résolution de problèmes réels et classiques. Les modèles étudiés permettent d'améliorer l'organisation du transport, de la distribution et du routage.
+
+L'utilisation de Pyomo, GLPK et OR-Tools permet de vérifier les résultats théoriques obtenus par la méthode du simplexe et de proposer des solutions pratiques pour des problèmes d'optimisation.
+
+\end{document}
