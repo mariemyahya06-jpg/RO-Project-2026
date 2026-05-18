@@ -1,97 +1,113 @@
+% ============================================================
+%   Exercice Simplexe - Sujet 1 : Transport de poissons
+%   Fichier LaTeX autonome, compilable directement par :
+%       pdflatex simplexe.tex
+% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Encodage et langue ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+
+% --- Mathematiques ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% --- Mise en page ---
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{parskip}
+
+% ============================================================
+%   COMMANDE \Eq : signe egal renforce (visible dans tout lecteur
+%   PDF, y compris VS Code PDF Viewer). Police texte + Large + bold.
+% ============================================================
+\newcommand{\Eq}{\mathrel{\text{\Large\bfseries =}}}
+
+% ============================================================
+%   COMMANDES \Leq et \Geq : inegalites <= et >= en version
+%   inclinee (plus visible et bien distincte de < et >).
+% ============================================================
+\newcommand{\Leq}{\leqslant}
+\newcommand{\Geq}{\geqslant}
+
+% --- Equation encadree avec \Eq ---
+\newcommand{\BoxedEq}[1]{%
+  \begin{equation*}
+    \boxed{\,\displaystyle #1\,}
+  \end{equation*}%
+}
+
+\begin{document}
+
 \section*{Exercice Simplexe : Transport de poissons}
 
 \subsection*{Contexte}
-Une entreprise souhaite organiser le transport du poisson frais entre Nouadhibou et Nouakchott.  
-On considère deux destinations principales : le marché principal et les restaurants/supermarchés.
+Une entreprise souhaite organiser le transport du poisson frais entre Nouadhibou et Nouakchott. On considere deux destinations principales : le marche principal et les restaurants/supermarches.
 
-\subsection*{Variables de décision}
+\subsection*{Variables de decision}
 \[
-X = \text{quantité de poisson transportée vers le marché principal}
-\]
-
-\[
-Y = \text{quantité de poisson transportée vers les restaurants et supermarchés}
+\begin{aligned}
+X &\Eq \text{quantite de poisson transportee vers le marche principal}, \\
+Y &\Eq \text{quantite de poisson transportee vers les restaurants et supermarches}.
+\end{aligned}
 \]
 
 \subsection*{Fonction objectif}
-L’objectif est de maximiser le bénéfice total :
+L'objectif est de maximiser le benefice total :
 
-\[
-\max Z = 40X + 50Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 40\,X + 50\,Y}
 
 \subsection*{Contraintes}
 \[
-X + Y \leq 100
-\]
-
-\[
-2X + 3Y \leq 240
-\]
-
-\[
-X + 2Y \leq 160
-\]
-
-\[
-X \geq 0, \quad Y \geq 0
+\left\{
+\begin{aligned}
+X + Y    &\Leq 100 \\
+2X + 3Y  &\Leq 240 \\
+X + 2Y   &\Leq 160 \\
+X, Y     &\Geq 0
+\end{aligned}
+\right.
 \]
 
 \subsection*{Forme standard}
-On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
-
+On ajoute les variables d'ecart \(S_1\), \(S_2\) et \(S_3\) :
 \[
-X + Y + S_1 = 100
+\begin{aligned}
+X + Y + S_1            &\Eq 100 \\
+2X + 3Y + S_2          &\Eq 240 \\
+X + 2Y + S_3           &\Eq 160 \\
+Z - 40X - 50Y          &\Eq 0
+\end{aligned}
 \]
 
-\[
-2X + 3Y + S_2 = 240
-\]
-
-\[
-X + 2Y + S_3 = 160
-\]
-
-\[
-Z - 40X - 50Y = 0
-\]
-
-\subsection*{Résolution}
-Les sommets réalisables sont :
-
+\subsection*{Resolution}
+Les sommets realisables sont :
 \[
 (0,0), \quad (100,0), \quad (0,80), \quad (60,40)
 \]
 
-Calcul de la fonction objectif :
-
+Calcul de la fonction objectif a chaque sommet :
 \[
-Z(0,0) = 0
-\]
-
-\[
-Z(100,0) = 40(100) + 50(0) = 4000
-\]
-
-\[
-Z(0,80) = 40(0) + 50(80) = 4000
-\]
-
-\[
-Z(60,40) = 40(60) + 50(40) = 4400
+\begin{aligned}
+Z(0,0)     &\Eq 0 \\
+Z(100,0)   &\Eq 40(100) + 50(0)  \Eq 4000 \\
+Z(0,80)    &\Eq 40(0) + 50(80)   \Eq 4000 \\
+Z(60,40)   &\Eq 40(60) + 50(40)  \Eq 4400
+\end{aligned}
 \]
 
 \subsection*{Solution optimale}
-La solution optimale est :
 
-\[
-X = 60, \quad Y = 40
-\]
+\BoxedEq{X \Eq 60 \quad\text{et}\quad Y \Eq 40}
 
-\[
-Z_{\max} = 4400
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 4400}
 
-\subsection*{Interprétation}
-L’entreprise doit transporter 60 unités de poisson vers le marché principal et 40 unités vers les restaurants et supermarchés.  
-Le bénéfice maximal obtenu est de 4400 unités.
+\subsection*{Interpretation}
+L'entreprise doit transporter 60 unites de poisson vers le marche principal et 40 unites vers les restaurants et supermarches. Le benefice maximal obtenu est de 4400 unites.
+
+\end{document}

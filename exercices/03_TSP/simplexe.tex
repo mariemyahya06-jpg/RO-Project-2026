@@ -1,97 +1,113 @@
-\section*{Exercice Simplexe : Problème du voyageur de commerce}
+% ============================================================
+%   Exercice Simplexe - Sujet 3 : Voyageur de commerce (TSP)
+%   Fichier LaTeX autonome, compilable directement par :
+%       pdflatex simplexe.tex
+% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Encodage et langue ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+
+% --- Mathematiques ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% --- Mise en page ---
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{parskip}
+
+% ============================================================
+%   COMMANDE \Eq : signe egal renforce (visible dans tout lecteur
+%   PDF, y compris VS Code PDF Viewer). Police texte + Large + bold.
+% ============================================================
+\newcommand{\Eq}{\mathrel{\text{\Large\bfseries =}}}
+
+% ============================================================
+%   COMMANDES \Leq et \Geq : inegalites <= et >= en version
+%   inclinee (plus visible et bien distincte de < et >).
+% ============================================================
+\newcommand{\Leq}{\leqslant}
+\newcommand{\Geq}{\geqslant}
+
+% --- Equation encadree avec \Eq ---
+\newcommand{\BoxedEq}[1]{%
+  \begin{equation*}
+    \boxed{\,\displaystyle #1\,}
+  \end{equation*}%
+}
+
+\begin{document}
+
+\section*{Exercice Simplexe : Probleme du voyageur de commerce (TSP)}
 
 \subsection*{Contexte}
-Le problème du voyageur de commerce consiste à trouver un circuit optimal permettant de visiter plusieurs points.  
-Pour appliquer la méthode du simplexe, on considère ici une version linéaire simplifiée avec deux types de trajets.
+Le probleme du voyageur de commerce consiste a trouver un circuit optimal permettant de visiter plusieurs points. Pour appliquer la methode du simplexe, on considere ici une version lineaire simplifiee avec deux types de trajets.
 
-\subsection*{Variables de décision}
+\subsection*{Variables de decision}
 \[
-X = \text{nombre de trajets effectués sur la route 1}
-\]
-
-\[
-Y = \text{nombre de trajets effectués sur la route 2}
+\begin{aligned}
+X &\Eq \text{nombre de trajets effectues sur la route 1}, \\
+Y &\Eq \text{nombre de trajets effectues sur la route 2}.
+\end{aligned}
 \]
 
 \subsection*{Fonction objectif}
-L’objectif est de maximiser le gain obtenu par le choix des trajets :
+L'objectif est de maximiser le gain obtenu par le choix des trajets :
 
-\[
-\max Z = 25X + 20Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 25\,X + 20\,Y}
 
 \subsection*{Contraintes}
 \[
-X + Y \leq 30
-\]
-
-\[
-4X + 2Y \leq 100
-\]
-
-\[
-2X + 3Y \leq 90
-\]
-
-\[
-X \geq 0, \quad Y \geq 0
+\left\{
+\begin{aligned}
+X + Y    &\Leq 30  \\
+4X + 2Y  &\Leq 100 \\
+2X + 3Y  &\Leq 90  \\
+X, Y     &\Geq 0
+\end{aligned}
+\right.
 \]
 
 \subsection*{Forme standard}
-On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
-
+On ajoute les variables d'ecart \(S_1\), \(S_2\) et \(S_3\) :
 \[
-X + Y + S_1 = 30
+\begin{aligned}
+X + Y + S_1            &\Eq 30  \\
+4X + 2Y + S_2          &\Eq 100 \\
+2X + 3Y + S_3          &\Eq 90  \\
+Z - 25X - 20Y          &\Eq 0
+\end{aligned}
 \]
 
-\[
-4X + 2Y + S_2 = 100
-\]
-
-\[
-2X + 3Y + S_3 = 90
-\]
-
-\[
-Z - 25X - 20Y = 0
-\]
-
-\subsection*{Résolution}
-Les sommets réalisables principaux sont :
-
+\subsection*{Resolution}
+Les sommets realisables principaux sont :
 \[
 (0,0), \quad (25,0), \quad (0,30), \quad (20,10)
 \]
 
-Calcul de la fonction objectif :
-
+Calcul de la fonction objectif a chaque sommet :
 \[
-Z(0,0) = 0
-\]
-
-\[
-Z(25,0) = 25(25) + 20(0) = 625
-\]
-
-\[
-Z(0,30) = 25(0) + 20(30) = 600
-\]
-
-\[
-Z(20,10) = 25(20) + 20(10) = 700
+\begin{aligned}
+Z(0,0)    &\Eq 0 \\
+Z(25,0)   &\Eq 25(25) + 20(0)  \Eq 625 \\
+Z(0,30)   &\Eq 25(0)  + 20(30) \Eq 600 \\
+Z(20,10)  &\Eq 25(20) + 20(10) \Eq 700
+\end{aligned}
 \]
 
 \subsection*{Solution optimale}
-La solution optimale est :
 
-\[
-X = 20, \quad Y = 10
-\]
+\BoxedEq{X \Eq 20 \quad\text{et}\quad Y \Eq 10}
 
-\[
-Z_{\max} = 700
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 700}
 
-\subsection*{Interprétation}
-La meilleure combinaison consiste à effectuer 20 trajets sur la route 1 et 10 trajets sur la route 2.  
-Le gain maximal obtenu est de 700 unités.
+\subsection*{Interpretation}
+La meilleure combinaison consiste a effectuer 20 trajets sur la route 1 et 10 trajets sur la route 2. Le gain maximal obtenu est de 700 unites.
+
+\end{document}

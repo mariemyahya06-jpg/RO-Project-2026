@@ -1,101 +1,75 @@
-from ortools.constraint_solver import pywrapcp, routing_enums_pb2
+"""
+Sujet 2 : Routage des camions d'eau
+====================================
+Modele de programmation lineaire (PL) resolu avec OR-Tools
+Linear Solver (GLOP), pour correspondre EXACTEMENT au modele
+simplexe theorique du rapport.
+
+Variables   : X = nombre de tournees vers la zone 1
+              Y = nombre de tournees vers la zone 2
+Objectif    : maximiser Z = 30 X + 40 Y
+Contraintes : X + Y    <= 50
+              3X + 4Y  <= 120
+              2X + 5Y  <= 150
+              X, Y >= 0
+Solveur     : OR-Tools Linear Solver (GLOP)
+Resultat    : Zmax = 1200
+              Deux solutions optimales possibles :
+                  (X = 40, Y = 0)
+                  (X = 0,  Y = 30)
+"""
+
+from ortools.linear_solver import pywraplp
 
 
-def create_data_model():
-    data = {}
+def build_model():
+    """Construit le modele de PL avec OR-Tools."""
+    solver = pywraplp.Solver.CreateSolver("GLOP")
+    if solver is None:
+        raise RuntimeError("Le solveur GLOP n'est pas disponible.")
 
-    data["distance_matrix"] = [
-        [0, 10, 15, 20, 25],
-        [10, 0, 8, 12, 18],
-        [15, 8, 0, 10, 14],
-        [20, 12, 10, 0, 9],
-        [25, 18, 14, 9, 0],
-    ]
+    # --- Variables de decision (X, Y >= 0) -------------------------
+    X = solver.NumVar(0.0, solver.infinity(), "X")
+    Y = solver.NumVar(0.0, solver.infinity(), "Y")
 
-    data["demands"] = [0, 30, 40, 20, 50]
-    data["vehicle_capacities"] = [100, 100]
-    data["num_vehicles"] = 2
-    data["depot"] = 0
+    # --- Contraintes -----------------------------------------------
+    solver.Add(X + Y       <= 50)    # nombre de tournees
+    solver.Add(3 * X + 4 * Y <= 120)  # capacite/ressource A
+    solver.Add(2 * X + 5 * Y <= 150)  # capacite/ressource B
 
-    return data
+    # --- Fonction objectif : max Z = 30 X + 40 Y ------------------
+    solver.Maximize(30 * X + 40 * Y)
 
-
-def print_solution(data, manager, routing, solution):
-    print("=== Résultat : Routage des camions d'eau ===")
-    total_distance = 0
-    total_load = 0
-
-    for vehicle_id in range(data["num_vehicles"]):
-        index = routing.Start(vehicle_id)
-        route_distance = 0
-        route_load = 0
-        route = f"Camion {vehicle_id + 1}: "
-
-        while not routing.IsEnd(index):
-            node_index = manager.IndexToNode(index)
-            route_load += data["demands"][node_index]
-            route += f"{node_index} -> "
-            previous_index = index
-            index = solution.Value(routing.NextVar(index))
-            route_distance += routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
-
-        route += "0"
-        print(route)
-        print("Charge transportée :", route_load)
-        print("Distance parcourue :", route_distance)
-        print()
-
-        total_distance += route_distance
-        total_load += route_load
-
-    print("Distance totale :", total_distance)
-    print("Charge totale :", total_load)
+    return solver, X, Y
 
 
-def main():
-    data = create_data_model()
+def print_results(solver, X, Y, status) -> None:
+    """Affiche les resultats de maniere structuree."""
+    print("=" * 60)
+    print("  Sujet 2 : Routage des camions d'eau (PL)")
+    print("=" * 60)
 
-    manager = pywrapcp.RoutingIndexManager(
-        len(data["distance_matrix"]),
-        data["num_vehicles"],
-        data["depot"]
-    )
-
-    routing = pywrapcp.RoutingModel(manager)
-
-    def distance_callback(from_index, to_index):
-        from_node = manager.IndexToNode(from_index)
-        to_node = manager.IndexToNode(to_index)
-        return data["distance_matrix"][from_node][to_node]
-
-    transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
-
-    def demand_callback(from_index):
-        from_node = manager.IndexToNode(from_index)
-        return data["demands"][from_node]
-
-    demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
-
-    routing.AddDimensionWithVehicleCapacity(
-        demand_callback_index,
-        0,
-        data["vehicle_capacities"],
-        True,
-        "Capacity"
-    )
-
-    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-    search_parameters.first_solution_strategy = (
-        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-    )
-
-    solution = routing.SolveWithParameters(search_parameters)
-
-    if solution:
-        print_solution(data, manager, routing, solution)
+    if status == pywraplp.Solver.OPTIMAL:
+        print("  Statut : OPTIMAL")
+        print("-" * 60)
+        print(f"  X (tournees zone 1) = {X.solution_value():.2f}")
+        print(f"  Y (tournees zone 2) = {Y.solution_value():.2f}")
+        print(f"  Zmax (eau totale)   = {solver.Objective().Value():.2f}")
+        print("-" * 60)
+        print("  Note : ce modele admet plusieurs solutions optimales")
+        print("         equivalentes (toutes donnent Zmax = 1200) :")
+        print("           - (X = 40, Y = 0)")
+        print("           - (X = 0,  Y = 30)")
+        print("=" * 60)
     else:
-        print("Aucune solution trouvée.")
+        print(f"  Statut : NON OPTIMAL (code {status})")
+        print("=" * 60)
+
+
+def main() -> None:
+    solver, X, Y = build_model()
+    status = solver.Solve()
+    print_results(solver, X, Y, status)
 
 
 if __name__ == "__main__":

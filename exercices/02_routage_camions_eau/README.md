@@ -1,52 +1,51 @@
-# Sujet 2 : Routage des camions d’eau
+# Sujet 2 : Routage des camions d'eau
 
 ## Responsable
-Nom : Fatimetou Mouhamed Lemin Saleh
-Numéro : C25248
+- **Nom :** Fatimetou Mohamed Lemin Saleh
+- **Numéro :** C25248
 
 ## Idée du projet
-Ce projet étudie la planification des tournées de camions d’eau vers des quartiers périphériques.  
-Pour la partie simplexe, on considère deux zones de distribution.
+Planifier les tournées des camions d'eau vers deux zones de distribution afin de maximiser la quantité totale d'eau distribuée, tout en respectant les contraintes de ressources (nombre de tournées, capacité, temps).
 
-## Hypothèses numériques
-
-Les valeurs numériques utilisées dans ce sujet sont des données proposées pour construire un exemple simple et applicable.  
-Le document du projet présente la description générale du problème, mais ne fournit pas toutes les données nécessaires à la résolution numérique.  
-Ces valeurs permettent de formuler un exercice résoluble par la méthode du simplexe et de vérifier la solution avec Python.
+## Données utilisées
+- `distribution_eau_data.csv`
 
 ## Variables de décision
 - `X` : nombre de tournées vers la zone 1
 - `Y` : nombre de tournées vers la zone 2
 
 ## Fonction objectif
-Maximiser la quantité d’eau distribuée :
+Maximiser la quantité totale d'eau distribuée :
 
-Z = 30X + 40Y
-
-où :
-
-- `30` représente la quantité d’eau distribuée par une tournée vers la zone 1
-- `40` représente la quantité d’eau distribuée par une tournée vers la zone 2
+```
+Zmax = 30X + 40Y
+```
 
 ## Contraintes
-- X + Y <= 50  
-- 3X + 4Y <= 120  
-- 2X + 5Y <= 150  
-- X >= 0  
-- Y >= 0  
+```
+X + Y    <= 50
+3X + 4Y  <= 120
+2X + 5Y  <= 150
+X >= 0,  Y >= 0
+```
 
-## Signification des contraintes
-- `X + Y <= 50` : nombre maximal de tournées possibles
-- `3X + 4Y <= 120` : limite de carburant disponible
-- `2X + 5Y <= 150` : limite de temps journalier disponible
+## Méthodes utilisées
+- **Partie théorique :** méthode du simplexe
+- **Implémentation :** OR-Tools Linear Solver (GLOP)
 
-## Méthode utilisée
-- Partie théorique : méthode du simplexe
-- Implémentation : OR-Tools
-- Solveur : moteur de routage OR-Tools
+## Résultat attendu
+Le problème admet **deux solutions optimales équivalentes** donnant la même valeur de Z :
+
+```
+Solution 1 :  X = 40,   Y = 0
+Solution 2 :  X = 0,    Y = 30
+Zmax = 1200
+```
+Dans les deux cas, la quantité totale d'eau distribuée est de 1200 unités. La société peut choisir l'organisation qui convient le mieux aux conditions du terrain.
 
 ## Fichiers
-- `distances.csv` : matrice des distances
-- `demands.csv` : demandes des points de distribution
-- `model_ortools.py` : code Python avec OR-Tools
-- `simplexe.tex` : exercice théorique avec la méthode du simplexe
+- `README.md` : ce document
+- `distribution_eau_data.csv` : données du modèle (variables, coefficients, contraintes)
+- `model_ortools.py` : modèle PL résolu avec OR-Tools (GLOP)
+- `simplexe.tex` : exercice théorique résolu par la méthode du simplexe
+- `simplexe.pdf` : version compilée du fichier LaTeX

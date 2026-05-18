@@ -1,72 +1,67 @@
-from ortools.constraint_solver import pywrapcp, routing_enums_pb2
+"""
+Sujet 3 : Probleme du voyageur de commerce (TSP)
+=================================================
+Modele de programmation lineaire (PL) resolu avec OR-Tools
+Linear Solver (GLOP), pour correspondre EXACTEMENT au modele
+simplexe theorique du rapport.
+
+Variables   : X = nombre de trajets effectues sur la route 1
+              Y = nombre de trajets effectues sur la route 2
+Objectif    : maximiser Z = 25 X + 20 Y
+Contraintes : X + Y    <= 30
+              4X + 2Y  <= 100
+              2X + 3Y  <= 90
+              X, Y >= 0
+Solveur     : OR-Tools Linear Solver (GLOP)
+Resultat    : X = 20, Y = 10, Zmax = 700
+"""
+
+from ortools.linear_solver import pywraplp
 
 
-def create_data_model():
-    data = {}
+def build_model():
+    """Construit le modele de PL avec OR-Tools."""
+    solver = pywraplp.Solver.CreateSolver("GLOP")
+    if solver is None:
+        raise RuntimeError("Le solveur GLOP n'est pas disponible.")
 
-    data["distance_matrix"] = [
-        [0, 12, 10, 19, 8],
-        [12, 0, 6, 15, 11],
-        [10, 6, 0, 7, 9],
-        [19, 15, 7, 0, 13],
-        [8, 11, 9, 13, 0],
-    ]
+    # --- Variables de decision (X, Y >= 0) -------------------------
+    X = solver.NumVar(0.0, solver.infinity(), "X")
+    Y = solver.NumVar(0.0, solver.infinity(), "Y")
 
-    data["num_vehicles"] = 1
-    data["depot"] = 0
+    # --- Contraintes -----------------------------------------------
+    solver.Add(X + Y       <= 30)    # nombre maximal de trajets
+    solver.Add(4 * X + 2 * Y <= 100)  # ressource A
+    solver.Add(2 * X + 3 * Y <= 90)   # ressource B
 
-    return data
+    # --- Fonction objectif : max Z = 25 X + 20 Y ------------------
+    solver.Maximize(25 * X + 20 * Y)
 
-
-def print_solution(manager, routing, solution):
-    print("=== Résultat : Problème du voyageur de commerce, TSP ===")
-
-    index = routing.Start(0)
-    route = "Route optimale : "
-    total_distance = 0
-
-    while not routing.IsEnd(index):
-        route += f"{manager.IndexToNode(index)} -> "
-        previous_index = index
-        index = solution.Value(routing.NextVar(index))
-        total_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
-
-    route += str(manager.IndexToNode(index))
-
-    print(route)
-    print("Distance totale :", total_distance)
+    return solver, X, Y
 
 
-def main():
-    data = create_data_model()
+def print_results(solver, X, Y, status) -> None:
+    """Affiche les resultats de maniere structuree."""
+    print("=" * 60)
+    print("  Sujet 3 : Probleme du voyageur de commerce, TSP (PL)")
+    print("=" * 60)
 
-    manager = pywrapcp.RoutingIndexManager(
-        len(data["distance_matrix"]),
-        data["num_vehicles"],
-        data["depot"]
-    )
-
-    routing = pywrapcp.RoutingModel(manager)
-
-    def distance_callback(from_index, to_index):
-        from_node = manager.IndexToNode(from_index)
-        to_node = manager.IndexToNode(to_index)
-        return data["distance_matrix"][from_node][to_node]
-
-    transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
-
-    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-    search_parameters.first_solution_strategy = (
-        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-    )
-
-    solution = routing.SolveWithParameters(search_parameters)
-
-    if solution:
-        print_solution(manager, routing, solution)
+    if status == pywraplp.Solver.OPTIMAL:
+        print("  Statut : OPTIMAL")
+        print("-" * 60)
+        print(f"  X (trajets route 1) = {X.solution_value():.2f}")
+        print(f"  Y (trajets route 2) = {Y.solution_value():.2f}")
+        print(f"  Zmax (gain total)   = {solver.Objective().Value():.2f}")
+        print("=" * 60)
     else:
-        print("Aucune solution trouvée.")
+        print(f"  Statut : NON OPTIMAL (code {status})")
+        print("=" * 60)
+
+
+def main() -> None:
+    solver, X, Y = build_model()
+    status = solver.Solve()
+    print_results(solver, X, Y, status)
 
 
 if __name__ == "__main__":

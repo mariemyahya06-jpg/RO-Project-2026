@@ -1,102 +1,115 @@
+% ============================================================
+%   Exercice Simplexe - Sujet 2 : Routage des camions d'eau
+%   Fichier LaTeX autonome, compilable directement par :
+%       pdflatex simplexe.tex
+% ============================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Encodage et langue ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+
+% --- Mathematiques ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% --- Mise en page ---
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{parskip}
+
+% ============================================================
+%   COMMANDE \Eq : signe egal renforce (visible dans tout lecteur
+%   PDF, y compris VS Code PDF Viewer). Police texte + Large + bold.
+% ============================================================
+\newcommand{\Eq}{\mathrel{\text{\Large\bfseries =}}}
+
+% ============================================================
+%   COMMANDES \Leq et \Geq : inegalites <= et >= en version
+%   inclinee (plus visible et bien distincte de < et >).
+% ============================================================
+\newcommand{\Leq}{\leqslant}
+\newcommand{\Geq}{\geqslant}
+
+% --- Equation encadree avec \Eq ---
+\newcommand{\BoxedEq}[1]{%
+  \begin{equation*}
+    \boxed{\,\displaystyle #1\,}
+  \end{equation*}%
+}
+
+\begin{document}
+
 \section*{Exercice Simplexe : Routage des camions d'eau}
 
 \subsection*{Contexte}
-Une société organise la distribution d’eau vers deux zones périphériques.  
-Chaque tournée permet de livrer une quantité d’eau différente selon la zone.
+Une societe organise la distribution d'eau vers deux zones peripheriques. Chaque tournee permet de livrer une quantite d'eau differente selon la zone.
 
-\subsection*{Variables de décision}
+\subsection*{Variables de decision}
 \[
-X = \text{nombre de tournées vers la zone 1}
-\]
-
-\[
-Y = \text{nombre de tournées vers la zone 2}
+\begin{aligned}
+X &\Eq \text{nombre de tournees vers la zone 1}, \\
+Y &\Eq \text{nombre de tournees vers la zone 2}.
+\end{aligned}
 \]
 
 \subsection*{Fonction objectif}
-L’objectif est de maximiser la quantité totale d’eau distribuée :
+L'objectif est de maximiser la quantite totale d'eau distribuee :
 
-\[
-\max Z = 30X + 40Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 30\,X + 40\,Y}
 
 \subsection*{Contraintes}
 \[
-X + Y \leq 50
-\]
-
-\[
-3X + 4Y \leq 120
-\]
-
-\[
-2X + 5Y \leq 150
-\]
-
-\[
-X \geq 0, \quad Y \geq 0
+\left\{
+\begin{aligned}
+X + Y    &\Leq 50  \\
+3X + 4Y  &\Leq 120 \\
+2X + 5Y  &\Leq 150 \\
+X, Y     &\Geq 0
+\end{aligned}
+\right.
 \]
 
 \subsection*{Forme standard}
-On ajoute les variables d'écart \(S_1\), \(S_2\) et \(S_3\) :
-
+On ajoute les variables d'ecart \(S_1\), \(S_2\) et \(S_3\) :
 \[
-X + Y + S_1 = 50
+\begin{aligned}
+X + Y + S_1            &\Eq 50  \\
+3X + 4Y + S_2          &\Eq 120 \\
+2X + 5Y + S_3          &\Eq 150 \\
+Z - 30X - 40Y          &\Eq 0
+\end{aligned}
 \]
 
-\[
-3X + 4Y + S_2 = 120
-\]
-
-\[
-2X + 5Y + S_3 = 150
-\]
-
-\[
-Z - 30X - 40Y = 0
-\]
-
-\subsection*{Résolution}
-Les sommets réalisables principaux sont :
-
+\subsection*{Resolution}
+Les sommets realisables principaux sont :
 \[
 (0,0), \quad (40,0), \quad (0,30)
 \]
 
-Calcul de la fonction objectif :
-
+Calcul de la fonction objectif a chaque sommet :
 \[
-Z(0,0) = 0
-\]
-
-\[
-Z(40,0) = 30(40) + 40(0) = 1200
-\]
-
-\[
-Z(0,30) = 30(0) + 40(30) = 1200
+\begin{aligned}
+Z(0,0)    &\Eq 0 \\
+Z(40,0)   &\Eq 30(40) + 40(0)  \Eq 1200 \\
+Z(0,30)   &\Eq 30(0)  + 40(30) \Eq 1200
+\end{aligned}
 \]
 
 \subsection*{Solution optimale}
-On obtient plusieurs solutions optimales.  
-Par exemple :
+On obtient deux solutions optimales differentes donnant la meme valeur de Z :
 
-\[
-X = 40, \quad Y = 0
-\]
+\BoxedEq{X \Eq 40 \quad\text{et}\quad Y \Eq 0}
 
-ou :
+\BoxedEq{X \Eq 0 \quad\text{et}\quad Y \Eq 30}
 
-\[
-X = 0, \quad Y = 30
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 1200}
 
-Dans les deux cas :
+\subsection*{Interpretation}
+La societe peut choisir plusieurs plans de tournees donnant la meme quantite maximale distribuee. Cela signifie qu'il existe plusieurs organisations possibles avec le meme resultat optimal.
 
-\[
-Z_{\max} = 1200
-\]
-
-\subsection*{Interprétation}
-La société peut choisir plusieurs plans de tournées donnant la même quantité maximale distribuée.  
-Cela signifie qu’il existe plusieurs organisations possibles avec le même résultat optimal.
+\end{document}

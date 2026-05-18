@@ -1,70 +1,178 @@
 \documentclass[12pt,a4paper]{article}
 
+% ============================================================
+%   Encodage et langue
+% ============================================================
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[french]{babel}
+
+% ============================================================
+%   Mathematiques
+% ============================================================
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{bm}
+
+% ============================================================
+%   Mise en page
+% ============================================================
 \usepackage{geometry}
-\usepackage{hyperref}
-
 \geometry{margin=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\setlist{itemsep=2pt, topsep=4pt}
 
-\title{Projet de Recherche Opérationnelle}
-\author{
-Sara Rabani -- Numéro : C30911 \\
-Fatimetou Mohamed Lemin Saleh -- Numéro : C25248 \\
-Maryem Yahya Hourme -- Numéro : C29782
+% ============================================================
+%   Titres
+% ============================================================
+\usepackage{titlesec}
+\titleformat{\section}
+  {\Large\bfseries\color{black!85}}
+  {\thesection.}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{black!75}}
+  {\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.0em}{0.5em}
+
+% ============================================================
+%   Liens hypertextes
+% ============================================================
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=blue!60!black,
+            citecolor=black]{hyperref}
+
+% ============================================================
+%   Boite Responsable
+% ============================================================
+\newtcolorbox{responsable}{
+  enhanced,
+  colback=blue!4,
+  colframe=blue!40!black,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=4pt, bottom=4pt,
+  fontupper=\normalsize,
 }
+
+% ============================================================
+%   COMMANDE \Eq : signe egal renforce, visible meme dans
+%   VS Code PDF Viewer (police texte + Large + bold)
+% ============================================================
+\newcommand{\Eq}{\mathrel{\text{\Large\bfseries =}}}
+
+% ============================================================
+%   COMMANDES \Leq et \Geq : inegalites <= et >= en version
+%   inclinee (plus visible et bien distincte de < et >)
+% ============================================================
+\newcommand{\Leq}{\leqslant}
+\newcommand{\Geq}{\geqslant}
+
+% ============================================================
+%   COMMANDE \BoxedEq : equation encadree, avec \Eq
+% ============================================================
+\newcommand{\BoxedEq}[1]{%
+  \begin{equation*}
+    \boxed{\,\displaystyle #1\,}
+  \end{equation*}%
+}
+
+% ============================================================
+%   Informations du document
+% ============================================================
+\title{\vspace{-1.2cm}\Huge\bfseries Projet de Recherche Opérationnelle\\[0.4em]
+       \large\mdseries Modélisation et résolution de trois problèmes d'optimisation linéaire}
+
+\author{%
+  Sara Rabani \quad\textbar\quad Numéro : C30911 \\[2pt]
+  Fatimetou Mohamed Lemin Saleh \quad\textbar\quad Numéro : C25248 \\[2pt]
+  Maryem Yahya Hourme \quad\textbar\quad Numéro : C29782%
+}
+
 \date{Année universitaire 2025--2026}
 
+% ============================================================
 \begin{document}
+% ============================================================
 
 \maketitle
+\thispagestyle{empty}
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
 
+\tableofcontents
+\newpage
+
+% ============================================================
 \section{Introduction générale}
+% ============================================================
 
-Ce projet présente la résolution de trois problèmes d'optimisation en Recherche Opérationnelle. Deux sujets sont liés à des problèmes réels en Mauritanie, tandis que le troisième sujet est un problème classique mondialement connu.
+Ce projet présente la résolution de trois problèmes d'optimisation linéaire en Recherche Opérationnelle. Chaque sujet est modélisé sous forme d'un programme linéaire à deux variables \((X, Y)\), puis résolu théoriquement et informatiquement.
 
 Les sujets étudiés sont :
 \begin{itemize}
-    \item Transport de poissons entre Nouadhibou et Nouakchott
-    \item Routage des camions d'eau dans les quartiers périphériques
-    \item Problème du voyageur de commerce, TSP
+    \item Transport de poissons entre Nouadhibou et Nouakchott ;
+    \item Distribution d'eau par camions vers deux zones périphériques ;
+    \item Problème du voyageur de commerce (TSP), version linéaire simplifiée.
 \end{itemize}
 
-L'objectif du projet est de formuler chaque problème sous forme mathématique, de proposer un exercice simple résoluble par la méthode du simplexe, puis de vérifier les résultats à l'aide d'outils informatiques comme Pyomo, GLPK et OR-Tools.
+Pour chaque sujet, le dossier correspondant contient :
+\begin{itemize}
+    \item un fichier CSV qui regroupe les données du problème (variables, coefficients, contraintes) ;
+    \item une résolution théorique par la méthode du simplexe (\texttt{simplexe.tex}) ;
+    \item une résolution informatique en Python : Pyomo + GLPK pour le Sujet 1, OR-Tools Linear Solver pour les Sujets 2 et 3.
+\end{itemize}
 
+% ============================================================
 \section{Outils utilisés}
+% ============================================================
 
 Les outils utilisés dans ce projet sont :
 \begin{itemize}
-    \item Python pour l'implémentation des modèles
-    \item Pyomo pour la programmation linéaire
-    \item GLPK comme solveur linéaire
-    \item OR-Tools pour les problèmes de routage
-    \item Overleaf / LaTeX pour la rédaction du rapport
-    \item GitHub pour l'organisation et le partage du projet
-    \item PowerPoint pour la présentation orale
+    \item \textbf{Python} pour l'implémentation des modèles ;
+    \item \textbf{Pyomo} pour la modélisation linéaire (Sujet 1) ;
+    \item \textbf{GLPK} comme solveur linéaire utilisé avec Pyomo ;
+    \item \textbf{OR-Tools Linear Solver (GLOP)} pour les Sujets 2 et 3 ;
+    \item \textbf{\LaTeX} pour la rédaction du rapport ;
+    \item \textbf{GitHub} pour l'organisation et le partage du projet ;
+    \item \textbf{PowerPoint} pour la présentation orale finale.
 \end{itemize}
 
+% ============================================================
 \section{Partie théorique : Méthode du simplexe}
+% ============================================================
 
 La méthode du simplexe est une méthode classique utilisée pour résoudre les problèmes de programmation linéaire. Elle permet de trouver une solution optimale en se déplaçant entre les sommets du domaine réalisable.
 
 Un problème de programmation linéaire est généralement composé de :
 \begin{itemize}
-    \item variables de décision
-    \item fonction objectif à maximiser ou à minimiser
-    \item contraintes linéaires
-    \item conditions de non-négativité
+    \item des \textbf{variables de décision} (ici \(X\) et \(Y\)) ;
+    \item une \textbf{fonction objectif} à maximiser ou à minimiser ;
+    \item un ensemble de \textbf{contraintes linéaires} ;
+    \item des \textbf{conditions de non-négativité} \((X, Y \Geq 0)\).
 \end{itemize}
 
-Dans ce projet, chaque sujet contient une version simplifiée avec deux variables de décision \(X\) et \(Y\), afin de pouvoir appliquer la méthode du simplexe.
+Dans ce projet, chaque sujet correspond à un programme linéaire à deux variables, ce qui permet d'appliquer la méthode du simplexe et de visualiser les sommets du domaine réalisable.
 
+% ============================================================
 \section{Sujet 1 : Transport de poissons Nouadhibou--Nouakchott}
+% ============================================================
 
-\textbf{Responsable :} Sara Rabani \\   
-\textbf{Numéro :} C30911   
+\begin{responsable}
+\textbf{Responsable :} Sara Rabani \\
+\textbf{Numéro :} C30911
+\end{responsable}
 
 \subsection{Contexte}
 
@@ -72,213 +180,234 @@ En Mauritanie, le transport du poisson frais entre Nouadhibou et Nouakchott est 
 
 L'objectif est d'organiser le transport du poisson afin de réduire les pertes, respecter les contraintes de capacité et maximiser le bénéfice total.
 
+\subsection{Données utilisées}
+Fichier de données :
+\begin{itemize}
+    \item \texttt{exercices/01\_transport\_poissons/transport\_poissons\_data.csv}
+\end{itemize}
+
 \subsection{Variables de décision}
 
 \[
 \begin{aligned}
-X &= \text{quantité de poisson transportée vers le marché principal} \\
-Y &= \text{quantité de poisson transportée vers les restaurants et supermarchés}
+X &\Eq \text{quantité de poisson transportée vers le marché principal}, \\
+Y &\Eq \text{quantité de poisson transportée vers les restaurants et supermarchés}.
 \end{aligned}
 \]
 
 \subsection{Fonction objectif}
 
-L'objectif est de maximiser le bénéfice total :
+Maximiser le bénéfice total :
 
-\[
-Z_{\text{max}} \; = \; 40X + 50Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 40\,X + 50\,Y}
 
 \subsection{Contraintes}
 
 \[
-X + Y \leq 100
+\left\{
+\begin{aligned}
+X + Y    &\Leq 100 \\
+2X + 3Y  &\Leq 240 \\
+X + 2Y   &\Leq 160 \\
+X, Y     &\Geq 0
+\end{aligned}
+\right.
 \]
 
-\[
-2X + 3Y \leq 240
-\]
-
-\[
-X + 2Y \leq 160
-\]
-
-\[
-X \geq 0, \quad Y \geq 0
-\]
-
-\subsection{Méthode utilisée}
-
-Ce problème est formulé comme un problème de programmation linéaire. La partie théorique est résolue par la méthode du simplexe et la vérification informatique est réalisée avec Pyomo et GLPK.
+\subsection{Méthodes utilisées}
+\begin{itemize}
+    \item \textbf{Partie théorique :} méthode du simplexe ;
+    \item \textbf{Partie informatique :} Pyomo + GLPK.
+\end{itemize}
 
 \subsection{Résultat}
 
 La solution optimale obtenue est :
 
-\[
-X = 60, \quad Y = 40
-\]
+\BoxedEq{X \Eq 60 \quad\text{et}\quad Y \Eq 40}
 
-\[
-Z_{\text{max}} \; = \; 4400
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 4400}
 
 \subsection{Interprétation}
 
 L'entreprise doit transporter 60 unités de poisson vers le marché principal et 40 unités vers les restaurants et supermarchés. Le bénéfice maximal obtenu est de 4400 unités.
 
-\section{Sujet 2 : Routage des camions d'eau}
+% ============================================================
+\section{Sujet 2 : Distribution / Routage des camions d'eau}
+% ============================================================
 
-\textbf{Responsable :} Fatimetou Mohamed Lemin Saleh \\   
+\begin{responsable}
+\textbf{Responsable :} Fatimetou Mohamed Lemin Saleh \\
 \textbf{Numéro :} C25248
+\end{responsable}
 
 \subsection{Contexte}
 
-Ce sujet traite la planification des tournées de camions d'eau vers plusieurs quartiers périphériques. L'objectif général est d'améliorer l'organisation de la distribution, de réduire la distance parcourue et de satisfaire la demande des zones concernées.
+Ce sujet traite la planification des tournées de camions d'eau vers deux zones de distribution périphériques. L'objectif est de maximiser la quantité totale d'eau distribuée tout en respectant les contraintes de ressources.
 
-Pour la partie simplexe, on considère une version linéaire simplifiée avec deux zones de distribution.
+\subsection{Données utilisées}
+Fichier de données :
+\begin{itemize}
+    \item \texttt{exercices/02\_routage\_camions\_eau/distribution\_eau\_data.csv}
+\end{itemize}
 
 \subsection{Variables de décision}
 
 \[
 \begin{aligned}
-X &= \text{nombre de tournées vers la zone 1} \\
-Y &= \text{nombre de tournées vers la zone 2}
+X &\Eq \text{nombre de tournées vers la zone 1}, \\
+Y &\Eq \text{nombre de tournées vers la zone 2}.
 \end{aligned}
 \]
 
 \subsection{Fonction objectif}
 
-L'objectif est de maximiser la quantité totale d'eau distribuée :
+Maximiser la quantité totale d'eau distribuée :
 
-\[
-Z_{\text{max}} \; = \; 30X + 40Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 30\,X + 40\,Y}
 
 \subsection{Contraintes}
 
 \[
-X + Y \leq 50
+\left\{
+\begin{aligned}
+X + Y     &\Leq 50  \\
+3X + 4Y   &\Leq 120 \\
+2X + 5Y   &\Leq 150 \\
+X, Y      &\Geq 0
+\end{aligned}
+\right.
 \]
 
-\[
-3X + 4Y \leq 120
-\]
+\subsection{Méthodes utilisées}
+\begin{itemize}
+    \item \textbf{Partie théorique :} méthode du simplexe ;
+    \item \textbf{Partie informatique :} OR-Tools Linear Solver (GLOP).
+\end{itemize}
 
-\[
-2X + 5Y \leq 150
-\]
+\subsection{Résultats}
 
-\[
-X \geq 0, \quad Y \geq 0
-\]
+Ce modèle admet \textbf{deux solutions optimales équivalentes} donnant la même valeur de \(Z\) :
 
-\subsection{Méthode utilisée}
+\BoxedEq{X \Eq 40 \quad\text{et}\quad Y \Eq 0}
 
-La version simplexe est formulée comme un programme linéaire. La version informatique du problème de routage est résolue avec OR-Tools, qui est adapté aux problèmes de tournées et de véhicules.
+\BoxedEq{X \Eq 0 \quad\text{et}\quad Y \Eq 30}
 
-\subsection{Résultat}
-
-Une solution optimale possible est :
-
-\[
-X = 40, \quad Y = 0
-\]
-
-\[
-Z_{\text{max}} \; = \; 1200
-\]
-
-Une autre solution optimale possible est :
-
-\[
-X = 0, \quad Y = 30
-\]
-
-\[
-Z_{\text{max}} \; = \; 1200
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 1200}
 
 \subsection{Interprétation}
 
-Le modèle montre qu'il existe plusieurs plans de distribution donnant la même quantité maximale d'eau distribuée. Cela signifie que la société peut choisir entre plusieurs organisations possibles selon les conditions réelles du terrain.
+Le modèle montre qu'il existe plusieurs plans de distribution donnant la même quantité maximale d'eau distribuée (1200 unités). La société peut donc choisir entre plusieurs organisations possibles selon les conditions réelles du terrain.
 
-\section{Sujet 3 : Problème du voyageur de commerce, TSP}
+% ============================================================
+\section{Sujet 3 : Problème du voyageur de commerce (TSP)}
+% ============================================================
 
-\textbf{Responsable :} Maryem Yahya Hourme \\   
+\begin{responsable}
+\textbf{Responsable :} Maryem Yahya Hourme \\
 \textbf{Numéro :} C29782
+\end{responsable}
 
 \subsection{Contexte}
 
-Le problème du voyageur de commerce, ou TSP, est l'un des problèmes les plus connus en Recherche Opérationnelle. Il consiste à trouver le plus court circuit permettant de visiter tous les points une seule fois et de revenir au point de départ.
+Le problème du voyageur de commerce (TSP) est l'un des problèmes les plus connus en Recherche Opérationnelle. Pour appliquer la méthode du simplexe, on utilise ici une \textbf{version linéaire simplifiée} dans laquelle on choisit entre deux types de trajets afin de maximiser le gain total.
 
-Pour appliquer la méthode du simplexe, on utilise une version linéaire simplifiée avec deux types de trajets.
+\subsection{Données utilisées}
+Fichier de données :
+\begin{itemize}
+    \item \texttt{exercices/03\_TSP/tsp\_data.csv}
+\end{itemize}
 
 \subsection{Variables de décision}
 
 \[
 \begin{aligned}
-X &= \text{nombre de trajets effectués sur la route 1} \\
-Y &= \text{nombre de trajets effectués sur la route 2}
+X &\Eq \text{nombre de trajets effectués sur la route 1}, \\
+Y &\Eq \text{nombre de trajets effectués sur la route 2}.
 \end{aligned}
 \]
 
 \subsection{Fonction objectif}
 
-L'objectif est de maximiser le gain obtenu :
+Maximiser le gain obtenu :
 
-\[
-Z_{\text{max}} \; = \; 25X + 20Y
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 25\,X + 20\,Y}
 
 \subsection{Contraintes}
 
 \[
-X + Y \leq 30
+\left\{
+\begin{aligned}
+X + Y    &\Leq 30  \\
+4X + 2Y  &\Leq 100 \\
+2X + 3Y  &\Leq 90  \\
+X, Y     &\Geq 0
+\end{aligned}
+\right.
 \]
 
-\[
-4X + 2Y \leq 100
-\]
-
-\[
-2X + 3Y \leq 90
-\]
-
-\[
-X \geq 0, \quad Y \geq 0
-\]
-
-\subsection{Méthode utilisée}
-
-La partie théorique est présentée sous forme d'un modèle linéaire simplifié. La résolution informatique du TSP est réalisée avec OR-Tools.
+\subsection{Méthodes utilisées}
+\begin{itemize}
+    \item \textbf{Partie théorique :} méthode du simplexe ;
+    \item \textbf{Partie informatique :} OR-Tools Linear Solver (GLOP).
+\end{itemize}
 
 \subsection{Résultat}
 
-La solution optimale de la version simplexe est :
+La solution optimale obtenue est :
 
-\[
-X = 20, \quad Y = 10
-\]
+\BoxedEq{X \Eq 20 \quad\text{et}\quad Y \Eq 10}
 
-\[
-Z_{\text{max}} \; = \; 700
-\]
+\BoxedEq{Z_{\mathrm{max}} \Eq 700}
 
 \subsection{Interprétation}
 
 La meilleure combinaison consiste à effectuer 20 trajets sur la route 1 et 10 trajets sur la route 2. Le gain maximal obtenu est de 700 unités.
 
+% ============================================================
+\section{Structure du projet}
+% ============================================================
+
+L'organisation des fichiers est la suivante :
+
+\begin{verbatim}
+exercices/
+|-- 01_transport_poissons/
+|   |-- transport_poissons_data.csv
+|   |-- model_pyomo.py
+|   |-- simplexe.tex
+|   |-- simplexe.pdf
+|   `-- README.md
+|
+|-- 02_routage_camions_eau/
+|   |-- distribution_eau_data.csv
+|   |-- model_ortools.py
+|   |-- simplexe.tex
+|   |-- simplexe.pdf
+|   `-- README.md
+|
+`-- 03_TSP/
+    |-- tsp_data.csv
+    |-- model_ortools.py
+    |-- simplexe.tex
+    |-- simplexe.pdf
+    `-- README.md
+\end{verbatim}
+
+Chaque sujet est donc autonome : ses données, sa résolution théorique et sa résolution informatique sont regroupées dans le même dossier.
+
+% ============================================================
 \section{Remarque sur les données utilisées}
+% ============================================================
 
-Les données numériques utilisées dans ce projet sont des hypothèses proposées afin de construire des exemples simples et résolubles. Le sujet fourni présente les descriptions générales des problèmes, mais ne donne pas toutes les valeurs nécessaires à une résolution numérique complète.
+Les valeurs numériques utilisées dans ce projet sont des \textbf{données proposées} afin de construire des modèles simples et résolubles. Chaque sujet repose sur un \textbf{seul fichier CSV} qui regroupe les variables, les coefficients de la fonction objectif et les seconds membres des contraintes. Les modèles Python (Pyomo ou OR-Tools) résolvent exactement le même programme linéaire que celui présenté dans la partie théorique.
 
-Ces données permettent de formuler des modèles mathématiques simples, d'appliquer la méthode du simplexe et de vérifier les résultats à l'aide d'outils informatiques.
-
+% ============================================================
 \section{Conclusion}
+% ============================================================
 
-Ce projet montre l'importance de la Recherche Opérationnelle dans la résolution de problèmes réels et classiques. Les modèles étudiés permettent d'améliorer l'organisation du transport, de la distribution et du routage.
+Ce projet montre l'importance de la \textbf{Recherche Opérationnelle} dans la modélisation et la résolution de problèmes d'optimisation réels et classiques. La \textbf{programmation linéaire} permet de représenter un problème de décision sous forme d'un système simple et de le résoudre rigoureusement.
 
-L'utilisation de Pyomo, GLPK et OR-Tools permet de vérifier les résultats théoriques obtenus par la méthode du simplexe et de proposer des solutions pratiques pour des problèmes d'optimisation.
+L'utilisation combinée de la méthode du simplexe, de Pyomo + GLPK et d'OR-Tools (Linear Solver) permet de vérifier les résultats théoriques et de proposer des solutions pratiques et reproductibles pour des problèmes de transport, de distribution et de routage.
 
 \end{document}
